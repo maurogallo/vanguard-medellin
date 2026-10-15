@@ -2,6 +2,9 @@
 
 Plataforma digital premium bilingüe (Inglés / Español) diseñada para captar y atender turistas extranjeros de alto valor (nómadas digitales, grupos de amigos, ejecutivos y familias) que visitan Medellín con énfasis en **seguridad, acompañamiento privado, hospedajes verificados y experiencias turísticas exclusivas**.
 
+🔗 **Repositorio en GitHub:** [https://github.com/maurogallo/vanguard-medellin](https://github.com/maurogallo/vanguard-medellin)  
+📖 **Manual Completo y Técnico:** Consulta [`DOCUMENTACION_COMPLETA.md`](./DOCUMENTACION_COMPLETA.md) para detalles exhaustivos de arquitectura, fotos y modelo de negocio.
+
 ---
 
 ## 🚀 Características Clave Implementadas
@@ -15,16 +18,32 @@ Plataforma digital premium bilingüe (Inglés / Español) diseñada para captar 
    - **Seguridad Ejecutiva & Movilidad:** Choferes bilingües verificados, SUVs blindadas nivel III y monitoreo satelital en tiempo real.
    - **Concierge Personal Bilingüe:** Asistencia inmediata 24/7 por WhatsApp, reservas VIP y respaldo médico/legal.
    - **Tours Privados de Alto Nivel:** Helicóptero y yate en Guatapé, Comuna 13 privada de autor, catación de café de especialidad y vida nocturna protegida en Provenza.
-4. **Cotizador y Diseñador de Itinerario Interactivo en Tiempo Real:**
-   - Permite al usuario seleccionar tipo de estadía, nivel de movilidad/seguridad, tours deseados, número de días y de pasajeros.
-   - Calcula el total y valor aproximado por persona en USD.
-   - **Botón de Reserva Directa por WhatsApp:** Formatea automáticamente el itinerario y lo abre en WhatsApp listo para enviar a la agencia.
-5. **Matriz de Confianza y Seguridad (Protocolos Preventivos):**
+4. **Galería Interactiva con Fotos Auténticas de la Región (`/public/images/`):**
+   - **Guatapé Pueblo:** Plazoleta de los Zócalos en el Oriente Antioqueño.
+   - **La Piedra del Peñol:** Monolito y embalse.
+   - **Comuna 13:** Murales de arte urbano y escaleras eléctricas en San Javier.
+   - **Plaza Botero:** Esculturas de bronce de Fernando Botero y Palacio de la Cultura.
+   - **Provenza:** Bulevar gastronómico y rumba de la Carrera 35 en El Poblado.
+   - **Pueblito Paisa:** Cerro Nutibara con vista panorámica del valle.
+   - **Cafetales:** Finca cafetera tradicional en las montañas de Antioquia.
+5. **Cotizador y Diseñador de Itinerario Interactivo en Tiempo Real:**
+   - Calcula el total y valor aproximado por persona en USD según días, huéspedes, autos y tours.
+   - **Botón de Reserva Directa por WhatsApp:** Formatea automáticamente el itinerario y lo envía al concierge.
+6. **Matriz de Confianza y Seguridad (Protocolos Preventivos):**
    - Filtros de antecedentes, acompañamiento en citas y vida nocturna (prevención de escopolamina), corredores seguros y enlace hospitalario/legal.
-6. **Formulario Modal de Consulta Confidencial:**
-   - Para solicitudes a medida y clientes ejecutivos.
-7. **Botón Flotante 24/7:**
+7. **Botón Flotante Permanente 24/7:**
    - Acceso inmediato al concierge desde cualquier parte del sitio en móviles y computadores.
+
+---
+
+## 📱 Líneas de Atención Configuradas
+
+El sistema cuenta con un archivo centralizado de configuración en [`src/data/contactConfig.js`](./src/data/contactConfig.js) con tus dos líneas activas:
+
+1. **Línea Principal (Concierge VIP & Cotizaciones):** `+57 301 454 6530`
+   - Recibe las cotizaciones del Trip Builder, botón flotante, consultas de tours y reservas de hospedaje.
+2. **Línea Operativa y Seguridad 24/7:** `+57 302 641 5567`
+   - Recibe las solicitudes de protocolos de seguridad, blindaje y el botón de emergencia en el Navbar.
 
 ---
 
@@ -41,24 +60,24 @@ Abre tu navegador en `http://localhost:5173`.
 
 ---
 
----
+## 🌐 Publicación en Vercel con Subdominio en `synaptiqnova.online`
 
-## 📱 Líneas de Atención Configuradas
+### 1. Despliegue en Vercel
+1. Entra a [https://vercel.com/new](https://vercel.com/new).
+2. Selecciona **Import** en el repositorio `vanguard-medellin`.
+3. Haz clic en **Deploy**.
 
-El sistema cuenta con un archivo centralizado de configuración en [`src/data/contactConfig.js`](file:///c:/DirectorioTabajo/vanguard-medellin/src/data/contactConfig.js) con tus dos líneas activas:
+### 2. Configurar Subdominio en Vercel
+1. En el proyecto en Vercel, entra a **Settings > Domains**.
+2. Escribe: `vanguard.synaptiqnova.online` (o el nombre que prefieras).
+3. Haz clic en **Add**.
 
-1. **Línea Principal (Concierge VIP & Cotizaciones):** `+57 301 454 6530`
-   - Recibe las cotizaciones del Trip Builder, botón flotante, consultas de tours y reservas de hospedaje.
-2. **Línea Operativa y Seguridad 24/7:** `+57 302 641 5567`
-   - Recibe las solicitudes de protocolos de seguridad, blindaje y el botón de emergencia en el Navbar.
+### 3. Registro DNS en tu Proveedor de Dominio
+En la zona DNS de `synaptiqnova.online`, agrega:
+- **Tipo:** `CNAME`
+- **Host / Nombre:** `vanguard`
+- **Destino / Valor:** `cname.vercel-dns.com`
+- **TTL:** Automático o 3600
 
----
-
-## 🌐 Opciones de Publicación / Despliegue en Internet
-
-La plataforma está lista para compilarse y publicarse en menos de 2 minutos:
-
-1. **Vercel (Recomendado):**
-   - Arrastra la carpeta o conecta el repositorio de GitHub en [vercel.com](https://vercel.com).
-2. **Netlify:**
-   - Ejecuta `npm run build` y arrastra la carpeta `dist` a [app.netlify.com/drop](https://app.netlify.com/drop).
+Vercel generará el certificado SSL (HTTPS) gratis automáticamente.
+Para una guía detallada, lee [`DOCUMENTACION_COMPLETA.md`](./DOCUMENTACION_COMPLETA.md).

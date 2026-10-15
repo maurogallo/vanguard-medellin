@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    background-color: #090b0e;
+    color: #f1f5f9;
+    overflow-x: hidden;
+  }
+}
+
+.luxury-gradient-text {
+  background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 40%, #e2b96f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #fce09b 0%, #d4af37 50%, #aa8012 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glass-card {
+  background: rgba(18, 22, 31, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(212, 175, 55, 0.3);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 25px -5px rgba(212, 175, 55, 0.15);
+}
+
+.glow-gold {
+  box-shadow: 0 0 30px -5px rgba(212, 175, 55, 0.25);
+}

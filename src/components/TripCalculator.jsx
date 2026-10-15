@@ -1,6 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import { Calculator, Check, MessageSquare, Shield, Calendar, Users, Sparkles, Building, Car, Compass } from 'lucide-react';
+import { Calculator, Check, MessageSquare, Shield, Calendar, Users, Sparkles, Building, Car, Compass, Share2 } from 'lucide-react';
 import { CONTACT_INFO } from '../data/contactConfig';
+import { trackWhatsAppClick, trackItineraryEstimate } from '../utils/analytics';
+
 
 const stayOptions = [
   {
@@ -145,6 +147,26 @@ Estimated Investment: $${calculation.total.toLocaleString()} USD (~$${calculatio
 Please confirm availability and discuss custom adjustments.`;
 
     return `https://wa.me/${CONTACT_INFO.primaryPhone}?text=${encodeURIComponent(message)}`;
+  };
+
+  const handleShare = async () => {
+    const shareData = {
+      title: 'Custom Medellín Itinerary | Vanguard Medellín',
+      text: `Check out our customized VIP trip to Medellín (${days} days for ${guests} guests): Stay, Private Security, and Curated Tours!`,
+      url: 'https://medellin.synaptiqnova.online/#calculator',
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        // User cancelled share
+      }
+    } else {
+      // Fallback: copy to clipboard
+      await navigator.clipboard.writeText(`https://medellin.synaptiqnova.online/#calculator`);
+      alert(lang === 'en' ? 'Itinerary link copied to clipboard!' : '¡Enlace de itinerario copiado al portapapeles!');
+    }
   };
 
   return (
@@ -419,11 +441,25 @@ Please confirm availability and discuss custom adjustments.`;
                 href={generateWhatsAppLink()}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => {
+                  trackItineraryEstimate(calculation.total, days, guests);
+                  trackWhatsAppClick('calculator_trip_builder');
+                }}
                 className="w-full py-4 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 transition-all cursor-pointer"
               >
                 <MessageSquare className="w-4 h-4 fill-white" />
                 <span>{t.calculator.bookWhatsapp}</span>
               </a>
+
+              {/* Share Itinerary with Travel Group */}
+              <button
+                type="button"
+                onClick={handleShare}
+                className="w-full mt-3 py-3 px-4 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer"
+              >
+                <Share2 className="w-4 h-4 text-amber-400" />
+                <span>{lang === 'en' ? 'Share Plan with Travel Friends' : 'Compartir Itinerario con Amigos'}</span>
+              </button>
 
               <p className="mt-4 text-[11px] text-slate-400 leading-relaxed text-center">
                 {t.calculator.customQuoteNote}

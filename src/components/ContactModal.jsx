@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Send, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { CONTACT_INFO } from '../data/contactConfig';
+import { trackLeadFormSubmit } from '../utils/analytics';
 
 export default function ContactModal({ isOpen, onClose, lang }) {
   const [submitted, setSubmitted] = useState(false);
@@ -18,6 +19,9 @@ export default function ContactModal({ isOpen, onClose, lang }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     
+    // Marketing event tracking
+    trackLeadFormSubmit(formData.services, formData.guests);
+
     // Generate WhatsApp direct text
     const message = `*New Vanguard Client Inquiry:*
 - Name: ${formData.name}
